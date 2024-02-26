@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f2b300f6-c53a-43b5-be4b-6a1bfb0acd53": {
+      "ProjectGuid": "f2b300f6-c53a-43b5-be4b-6a1bfb0acd53",
+      "DisplayName": "web",
+      "ColorIndex": 0
+    },
+    "a666fbc3-3fbb-4d14-a951-1ac5807b1e1c": {
+      "ProjectGuid": "a666fbc3-3fbb-4d14-a951-1ac5807b1e1c",
+      "DisplayName": "market",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

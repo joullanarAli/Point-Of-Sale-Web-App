@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "OBrC6QMrH7SsnyY9FlZivRP/dFJrDOZZg19Dv3cAuf9PpCkkOYYSPRhBT0nlWKHSoCK0Zgp84VlDujcMszN2VA==",
+  "success": true,
+  "projectFilePath": "E:\\HIAST\\4th_year\\web_development\\marketDB 1\\New folder (2)\\test\\test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ubay\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.32\\microsoft.aspnetcore.jsonpatch.3.1.32.nupkg.sha512",
+    "C:\\Users\\ubay\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.32\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.32.nupkg.sha512",
+    "C:\\Users\\ubay\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\ubay\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\ubay\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

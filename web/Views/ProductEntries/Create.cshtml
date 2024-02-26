@@ -1,0 +1,127 @@
+﻿@model market.ViewModels.ProductEntryViewModel
+
+<div  class="row my-2 position-static">
+    <p id="tempDataMessage" class="position-static" style="color:red">
+         @TempData["Message"]
+    </p>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .form-control{
+                width:50%;
+                margin-left:200px;
+            }
+            label{
+                 margin-left:200px;
+            }
+            select{
+                 margin-left:200px;
+            }
+            #isVip{
+                 margin-left:450px;
+            }
+            .btn-secondary{
+                margin-left:200px;                
+            }
+            .btn-primary{
+                margin-right:385px;
+            }
+              h2{
+                color:white;
+
+            }
+             .text-danger{
+                margin-left:200px;
+
+            }
+            .btn-link{
+                background-color: white;
+                color:black;
+                margin-left:200px;
+            }
+             #productList{
+                width:50%;
+                margin-left:200px;
+               
+            }
+        </style>
+    </head>
+
+    <body>
+<form class="form" method="post" action="@Url.Action("Create","ProductEntries")">
+    <h2>Create Product Entry</h2>
+    <div class="form-group">
+        <label asp-for="SupplierId">Supplier</label>
+        <select asp-for="SupplierId" asp-items="@Model.SupplierNames" class="form-control"></select>
+        <span asp-validation-for="SupplierId" class="text-danger"></span>
+        <br />
+        <label asp-for="Date"></label>
+        <input id="myDate" min="yyyy-mm-dd" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" autocomplete="off" asp-for="Date" class="form-control" required />
+        <span asp-validation-for="Date" class="text-danger"></span>
+        <br />
+        <h5>
+            <button id="toggleProducts" type="button" class="btn btn-link">expand to add Products </button>
+        </h5>
+        <ul id="productList" class="list-group" style="display: none;">
+            @foreach (var product in @Model.ProductNames)
+            {
+                <li class="list-group-item">
+                    <div class="form-check">
+                        <input autocomplete="off" type="checkbox" name="SelectedProducts" value="@product.Value" class="form-check-input" />
+                        <label class="form-check-label">@product.Text</label>
+                        <input  placeholder="quantity" name="quantities" autocomplete="off" type="number" min="1"  class="form-control quantity-input"  style="display: none;" disabled   required />
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="d-flex justify-content-between">
+        <a href="/ProductEntries/Index" class="btn btn-secondary">Back</a>
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+</form>
+</body>
+<script>
+    document.getElementById("toggleProducts").addEventListener("click", function() {
+        var productList = document.getElementById("productList");
+        var toggleBtn = document.getElementById("toggleProducts");
+        if (productList.style.display === "none") {
+            productList.style.display = "block";
+            toggleBtn.innerText = "Collapse Products";
+        } else {
+            productList.style.display = "none";
+            toggleBtn.innerText = "Expand Products";
+        }
+    });
+
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedProducts"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            var quantityInput = this.parentElement.querySelector('.quantity-input');
+        
+            if (this.checked) {
+            quantityInput.style.display = "block";
+            quantityInput.removeAttribute("disabled"); 
+            
+        } else {
+            quantityInput.style.display = "none";
+            quantityInput.setAttribute("disabled", "disabled"); 
+        }
+        });
+    });
+</script>
+
+<script>
+        var currentDate = new Date().toISOString().split("T")[0];
+        var currentTime = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit" });
+        var currentDateTime = currentDate + "T" + currentTime;
+
+        document.getElementById("myDate").min = currentDateTime;
+
+</script>
+</html>
+
+

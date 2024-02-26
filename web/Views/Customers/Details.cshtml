@@ -1,0 +1,43 @@
+﻿@model market.Models.Customer
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center;">
+
+                        <h3 class="profile-username text-center"> @Html.DisplayFor(model=>model.Name)</h3>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                          <li>
+                            <b> @Html.DisplayNameFor(model=>model.EmailAddress) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.EmailAddress)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.PhoneNumber) :   </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.PhoneNumber)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.Address) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Address)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.IsVip) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.IsVip)
+                            </p>
+                          </li>
+                        </ul>
+                        @*<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>*@
+                 </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>

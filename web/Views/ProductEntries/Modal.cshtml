@@ -1,0 +1,41 @@
+﻿@model market.Models.ProductEntry
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center; width:70%;">
+            <form>
+                <h2>Edit Product Entry</h2>
+                <div class="modal-body">
+                    <input id="Id" asp-for="Id" type="hidden" />
+                     <label asp-for="SupplierId">Supplier</label>
+                    <select id="SupplierId" asp-for="SupplierId" class="form-control" required>
+                        <option value="">Select a supplier</option>
+                        @foreach (var supplier in ViewBag.Suppliers)
+                        {
+                            <option value="@supplier.Id">@supplier.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    <br />
+		            <label  asp-for="Date"></label>
+                    <input type="date" id="Date" autocomplete="off" asp-for="Date" class="form-control" required />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                    <br />
+                    <span id="error" class="text-danger"></span>
+                </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Submit" id="submitButton" onclick="mysubmit(event)"  />
+                <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+            </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+       

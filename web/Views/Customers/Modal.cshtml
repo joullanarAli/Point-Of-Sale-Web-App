@@ -1,0 +1,48 @@
+﻿@model market.Models.Customer
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center; width:70%;">
+            <form>
+                <h2>Edit Customer</h2>
+                <div class="modal-body">
+                    <input id="Id" asp-for="Id" type="hidden" />
+                    <label asp-for="Name"></label>
+                    <input id="Name" autocomplete="off" asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <br />
+		            <label  asp-for="PhoneNumber">Phone Number</label>
+                    <input id="PhoneNumber" autocomplete="off" asp-for="PhoneNumber" class="form-control" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <br />
+                    <label asp-for="EmailAddress">Email Address</label>
+                    <input id="EmailAddress" autocomplete="off" asp-for="EmailAddress" class="form-control" required/>
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    <br />
+                    <label asp-for="Address"></label>
+                    <input id="Address" autocomplete="off" asp-for="Address" class="form-control" required/>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <br />
+                    <label asp-for="IsVip">Is Vip</label>
+                    <input id="IsVip" autocomplete="off" asp-for="IsVip" class="form-control" required/>
+                    <span asp-validation-for="IsVip" class="text-danger"></span>
+                    <br />
+                    <span id="error" class="text-danger"></span>
+                </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Submit" id="submitButton" onclick="mysubmit(event)"  />
+                <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+            </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+
+       

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\ubay\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ubay\\.nuget\\packages"
+    ]
+  }
+}

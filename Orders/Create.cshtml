@@ -1,0 +1,74 @@
+﻿@model market.ViewModels.OrderViewModel
+
+<h5>Create Order</h5>
+<form id="orderForm" class="form" method="post" action="@Url.Action("Create","Orders")">
+    <div class="form-group">
+        <label asp-for="Discount">Discount (%)</label>
+        <input autocomplete="off" asp-for="Discount" class="form-control" required />
+        <span asp-validation-for="Discount" class="text-danger"></span><br />
+        <label asp-for="Tax">Tax (%)</label>
+        <input autocomplete="off" asp-for="Tax" class="form-control" required />
+        <span asp-validation-for="Tax" class="text-danger"></span><br />
+        <label asp-for="DeliveryPrice">Delivery Price</label>
+        <input autocomplete="off" asp-for="DeliveryPrice" class="form-control" required />
+        <span asp-validation-for="DeliveryPrice" class="text-danger"></span><br />
+        <label asp-for="DeliveryAddress">Delivery Address</label>
+        <input autocomplete="off" asp-for="DeliveryAddress" class="form-control" required />
+        <span asp-validation-for="DeliveryAddress" class="text-danger"></span><br />
+        <input id="date" autocomplete="off" asp-for="OrderDate" class="form-control" value="2021-11-22T14:30" hidden />
+        <span asp-validation-for="OrderDate" class="text-danger"></span><br />
+        <label asp-for="CustomerId">Customer</label><br />
+        <select asp-for="CustomerId" asp-items="@Model.CustomerNames"></select><br /><br />
+
+        <h5>
+            <button id="toggleProducts" type="button" class="btn btn-link">expand Products to add</button>
+        </h5>
+        <ul id="productList" class="list-group" style="display: none;">
+            @foreach (var product in Model.ProductNames)
+            {
+                <li class="list-group-item">
+                    <div class="form-check">
+                        <input autocomplete="off" type="checkbox" name="SelectedProducts" value="@product.Value" class="form-check-input" />
+                        <label class="form-check-label">@product.Text</label>
+                        <input  placeholder="quantity" name="quantities" autocomplete="off" type="number" min="1"  class="form-control quantity-input"  style="display: none;" disabled   required />
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div class="d-flex justify-content-between">
+            <a href="/Orders/Index" class="btn btn-secondary">Back</a>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById("toggleProducts").addEventListener("click", function() {
+        var productList = document.getElementById("productList");
+        var toggleBtn = document.getElementById("toggleProducts");
+        if (productList.style.display === "none") {
+            productList.style.display = "block";
+            toggleBtn.innerText = "Collapse Products";
+        } else {
+            productList.style.display = "none";
+            toggleBtn.innerText = "Expand Products";
+        }
+    });
+
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedProducts"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            var quantityInput = this.parentElement.querySelector('.quantity-input');
+        
+            if (this.checked) {
+            quantityInput.style.display = "block";
+            quantityInput.removeAttribute("disabled"); 
+            
+        } else {
+            quantityInput.style.display = "none";
+            quantityInput.setAttribute("disabled", "disabled"); 
+        }
+        });
+    });
+</script>

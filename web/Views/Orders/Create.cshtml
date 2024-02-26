@@ -1,0 +1,200 @@
+﻿@model market.ViewModels.OrderViewModel
+
+<div  class="row my-2 position-static">
+    <p id="tempDataMessage" class="position-static" style="color:red">
+         @TempData["Message"]
+    </p>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .form-control{
+                width:50%;
+                margin-left:200px;
+            }
+            label{
+                 margin-left:200px;
+            }
+            select{
+                 margin-left:200px;
+            }
+            #isVip{
+                 margin-left:450px;
+            }
+            .btn-secondary{
+                margin-left:200px; 
+                 
+            }
+            .btn-primary{
+                margin-right:385px;
+                 
+            }
+              h2{
+                color:white;
+
+            }
+             .text-danger{
+                margin-left:200px;
+
+            }
+            .btn-link{
+                background-color: white;
+                color:black;
+                margin-left:200px;
+            }
+            #productList{
+                width:50%;
+                margin-left:200px;
+               
+            }
+          
+
+           /* select {
+                width: 10%;
+                height: 40px;
+                font-size: 90%;
+                font-weight: bold;
+                /*cursor: pointer;*/
+                background-color: #white;
+                border: none;
+                border-bottom: 0px solid black;
+                color: #4a4a4a;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                padding: 10px;
+                border-radius:15%;
+                display: grid;
+            }*/
+            
+        </style>
+    </head>
+
+    <body>
+
+
+<form id="orderForm" class="form" method="post" action="@Url.Action("Create","Orders")">
+    <h2>Create Order</h2>
+    <div class="form-group">
+        
+        <input autocomplete="off" id="totalprice" asp-for="TotalPrice" class="form-control" hidden />
+        <label  asp-for="Discount">Discount (%)</label>
+        <input name="discount" autocomplete="off" asp-for="Discount" class="form-control" required />
+        <span asp-validation-for="Discount" class="text-danger"></span><br />
+        <label asp-for="Tax">Tax (%)</label>
+        <input name="tax" autocomplete="off" asp-for="Tax" class="form-control" required />
+        <span asp-validation-for="Tax" class="text-danger"></span><br />
+        <label asp-for="DeliveryPrice">Delivery Price</label>
+        <input name="deliveryprice" autocomplete="off" asp-for="DeliveryPrice" class="form-control" required />
+        <span asp-validation-for="DeliveryPrice" class="text-danger"></span><br />
+        <label asp-for="DeliveryAddress">Delivery Address</label>
+        <input autocomplete="off" asp-for="DeliveryAddress" class="form-control" required />
+        <span asp-validation-for="DeliveryAddress" class="text-danger"></span><br />
+        <label asp-for="OrderDate">Order Date</label>
+        <input id="myDate" type="datetime-local" autocomplete="off" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" asp-for="OrderDate" class="form-control" required />
+        <span asp-validation-for="OrderDate" class="text-danger"></span><br />
+        <label asp-for="CustomerId">Customer</label><br />
+        <select asp-for="CustomerId" asp-items="@Model.CustomerNames" class="form-control"></select><br /><br />
+
+        <h5>
+            <button id="toggleProducts" type="button" class="btn btn-link">expand Products to add</button>
+        </h5>
+        <ul id="productList" class="list-group" style="display: none;">
+            @foreach (var product in @Model.ProductNames)
+            {
+                <li class="list-group-item">
+                    <div class="form-check">
+                        <input autocomplete="off" type="checkbox" name="SelectedProducts" value="@product.Value" class="form-check-input" />
+                        <label class="form-check-label">@product.Text</label>
+                        <input  placeholder="quantity" name="quantities" autocomplete="off" type="number" min="1"  class="form-control quantity-input"  style="display: none;" disabled   required />
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div class="d-flex justify-content-between">
+            <a href="/Orders/Index" class="btn btn-secondary">Back</a>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    document.getElementById("toggleProducts").addEventListener("click", function() {
+        var productList = document.getElementById("productList");
+        var toggleBtn = document.getElementById("toggleProducts");
+        if (productList.style.display === "none") {
+            productList.style.display = "block";
+            toggleBtn.innerText = "Collapse Products";
+        } else {
+            productList.style.display = "none";
+            toggleBtn.innerText = "Expand Products";
+        }
+    });
+
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedProducts"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            var quantityInput = this.parentElement.querySelector('.quantity-input');
+        
+            if (this.checked) {
+            quantityInput.style.display = "block";
+            quantityInput.removeAttribute("disabled"); 
+            
+        } else {
+            quantityInput.style.display = "none";
+            quantityInput.setAttribute("disabled", "disabled"); 
+        }
+        });
+    });
+</script>
+
+<script>
+        var currentDate = new Date().toISOString().split("T")[0];
+        var currentTime = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit" });
+        var currentDateTime = currentDate + "T" + currentTime;
+
+        document.getElementById("myDate").min = currentDateTime;
+
+</script>
+
+
+<script>
+    document.getElementById("orderForm").addEventListener("submit", function() {
+        var quantitiesInput = document.querySelectorAll('input[name="quantities"]');
+        var selectedProductsInput = document.querySelectorAll('input[name="SelectedProducts"]:checked');
+        var discount = parseInt(document.querySelector('input[name="discount"]').value);
+        var tax = parseInt(document.querySelector('input[name="tax"]').value);
+        var deliveryprice = parseInt(document.querySelector('input[name="deliveryprice"]').value);
+
+
+
+        var quantities = Array.from(quantitiesInput).map(function(input) {
+            var quantity = parseInt(input.value);
+            return isNaN(quantity) ? 0 : quantity; 
+            }).filter(function(quantity) {
+                return quantity > 0; 
+            });
+
+
+        var selectedProducts = Array.from(selectedProductsInput).map(function(input) {
+            return input.value;
+        });
+
+        var productPrices = @Html.Raw(Json.Serialize(Model.ProductPrices));
+
+        var t_price = 0;
+        for (var i = 0; i < selectedProducts.length; i++) {
+            for (var j = 0; j < quantities[i]; j++) {
+                var selectedProduct = selectedProducts[i];
+                var productPrice = productPrices[selectedProduct];
+                t_price += productPrice;
+            }
+        }
+        t_price=t_price - t_price*discount/100 + t_price*tax/100 +deliveryprice;
+        document.getElementById("totalprice").value = t_price;
+    });
+</script>
+</html>

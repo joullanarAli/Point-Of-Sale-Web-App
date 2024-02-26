@@ -1,0 +1,72 @@
+﻿@model  market.Models.Product
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .form-control{
+                width:50%;
+                margin-left:200px;
+            }
+            label{
+                 margin-left:200px;
+            }
+            #isVip{
+                 margin-left:450px;
+            }
+            .btn-secondary{
+                margin-left:200px;
+            }
+            .btn-primary{
+                margin-right:385px;
+            }
+            h2{
+                color:white;
+
+            }
+
+        .text-danger {
+            margin-left: 200px;
+        }
+        h2{
+            color:white;
+        }
+        </style>
+    </head>
+
+    <body>
+
+<form src="" class="form" method="post" action="@Url.Action("Create","Products")" enctype="multipart/form-data" >
+    <h2>Create Product</h2>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input autocomplete="off" asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <br />
+        <label asp-for="Description"></label>
+        <input autocomplete="off" asp-for="Description" class="form-control" required />
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <br />
+        <label asp-for="Price"></label>
+        <input autocomplete="off" asp-for="Price" class="form-control" required />
+        <span asp-validation-for="Price" class="text-danger"></span>
+        <br />
+        <label asp-for="Image"></label>
+        <input autocomplete="off" asp-for="Image" class="form-control" type="file" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+        <br />
+        <label asp-for="Quantity"></label>
+        <input autocomplete="off" asp-for="Quantity" class="form-control" required/>
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+        <br />
+        <label asp-for="AlertQuantity">Alert Quantity</label>
+        <input autocomplete="off" asp-for="AlertQuantity" class="form-control" required/>
+        <span asp-validation-for="AlertQuantity" class="text-danger"></span>
+        <br />
+    </div>
+        <div class="d-flex justify-content-between ">
+            <a href="/Products/Index" class="btn btn-secondary">Back</a>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+       </form>
+</body>
+</html>

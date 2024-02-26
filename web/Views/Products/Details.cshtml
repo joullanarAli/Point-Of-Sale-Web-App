@@ -1,0 +1,48 @@
+﻿@model market.Models.Product
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center;">
+                        <div class="text-center">
+                          <img class="profile-user-img img-fluid img-circle"
+                               src="/img/@Html.DisplayFor(model=>model.Image)"
+                               alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center"> @Html.DisplayFor(model=>model.Name)</h3>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                          <li>
+                            <b> @Html.DisplayNameFor(model=>model.Price) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Price)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.Description) :   </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Description)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.Quantity) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Quantity)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.AlertQuantity) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.AlertQuantity)
+                            </p>
+                          </li>
+                        </ul>
+                        @*<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>*@
+                 </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>

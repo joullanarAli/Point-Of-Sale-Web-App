@@ -1,0 +1,87 @@
+﻿@model market.Models.Order
+
+<div  class="row my-2 position-static">
+    <p id="tempDataMessage" class="position-static">
+         @TempData["Message"]
+    </p>
+</div>
+
+<div class="row my-3">
+    <div class="col-4">
+      @*  <a class="btn btn-primary" href="@Url.Action("Create","Orders")">
+                Add Product
+        </a>
+        <a class="btn btn-primary" href="@Url.Action("Create","Orders")">
+                Delete All
+        </a>*@
+    </div>
+    <div class="col-4">
+        <input type="text" class="form-control text-success" placeholder="Search..." onkeyup="search(this.value)" />
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name </th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<button class="btn btn-warning" onclick="get()">Get Order Products</button>
+
+<div id="modal-container">
+</div>
+@section Scripts{
+    <script>
+        function get(){
+            let obj = {
+                    "id":@Model.Id
+                            };
+            $.ajax({
+                url: '@Url.Action("GetOrderProducts", "Orders")' + "?id=" + @Model.Id,
+                type: 'get',
+                datatype: 'json',
+                data: { orderid: obj },
+                success: function (response){
+                    if (response.success){
+                        $('tbody').empty();
+                        $.each(response.data, (index, item) => {
+                            $('tbody').append(` <tr>
+                                            <td>${item.prod.name}</td>
+                                            <td>${item.quantity}</td>
+                                            <td>${item.prod.price}</td>
+                                            <td>
+                                                <button class="btn btn-light", onclick="showModal('${item.id}')">
+                                                    <i class='fas fa-pen' style='font-size:13px;color:black'></i>
+                                                </button>
+                                                <button class="btn btn-light", onclick="del('${item.id}')">
+                                                    <i class='fas fa-trash' style='font-size:13px;color:black'></i>
+                                                </button>
+                                                <button class="btn btn-light", onclick="addItem('${item.id}')">
+                                                    <i class='fas fa-cart-plus' style='font-size:13px;color:black'></i>
+                                                </button>
+                                            </td>
+                                </tr>`)
+                        })
+                    } else {
+                        alert(response.message)
+                    }
+                   
+                },
+                error: function (msg) {
+                    console.error(msg);
+                }
+            })
+        }
+    </script>
+}
+
+    

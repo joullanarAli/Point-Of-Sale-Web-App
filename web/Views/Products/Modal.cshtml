@@ -1,0 +1,55 @@
+﻿@model market.ViewModel.ProductViewModel
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center; width:70%;">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <h2>Edit Product</h2>
+                <div class="modal-body">
+                    <input id="Id" asp-for="Id" class="form-control" type="hidden" />
+                    <label asp-for="Name"></label>
+                    <input id="Name" asp-for="Name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                    <br />
+                    <label asp-for="Description"></label>
+                    <input id="Description" asp-for="Description" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                    <br />
+                    <label asp-for="Price"></label>
+                    <input id="Price" asp-for="Price" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Price"></span>
+                    <br />
+                    <label asp-for="Image">Image</label>
+                    <input id="Image" asp-for="Image" class="form-control" type="file" />
+                    <span class="text-danger" asp-validation-for="Image"></span>
+                    <br />
+                    <input id="Quantity" asp-for="Quantity" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Quantity"></span>
+                    <br />
+                    <label asp-for="AlertQuantity">Alert Quantity</label>
+                    <input id="AlertQuantity" asp-for="AlertQuantity" class="form-control" />
+                    <span class="text-danger" asp-validation-for="AlertQuantity"></span>
+                    <br />
+                    <span id="error" class="text-danger"></span>
+
+                </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+                <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+            </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+@*<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@

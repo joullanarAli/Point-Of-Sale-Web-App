@@ -1,0 +1,52 @@
+﻿@model market.Models.Order
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center;">
+                      
+                        <ul class="list-group list-group-unbordered mb-3">
+                          <li>
+                            <b> @Html.DisplayNameFor(model=>model.TotalPrice) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.TotalPrice)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.OrderDate) :   </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.OrderDate)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.DeliveryAddress) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.DeliveryAddress)
+                            </p>
+                          </li>
+                           <li>
+                            <b> @Html.DisplayNameFor(model=>model.Discount) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Discount)
+                            </p>
+                          </li>
+                          <li>
+                            <b> @Html.DisplayNameFor(model=>model.Tax) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.Tax)
+                            </p>
+                          </li>
+                          <li>
+                            <b> @Html.DisplayNameFor(model=>model.DeliveryPrice) : </b>
+                            <p class="float-right">
+                                @Html.DisplayFor(model=>model.DeliveryPrice)
+                            </p>
+                          </li>
+                        </ul>
+                 </div>
+              <!-- /.card-body -->
+            </div> 
+        </div>
+    </div>
+</div>

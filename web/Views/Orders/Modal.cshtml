@@ -1,0 +1,57 @@
+﻿@model market.Models.Order
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="card card-warning card-outline">
+              <div class="card-body box-profile" style="align-self: center; width:70%;">
+           <form id="orderForm">
+                <div class="modal-body">
+                    <input id="Id" asp-for="Id" class="form-control" type="hidden" />
+
+                    <label asp-for="Discount"></label>
+                    <input name="discount" id="Discount" asp-for="Discount" class="form-control" />
+                    <input name="old_discount" id="OldDiscount" asp-for="Discount" type="hidden" />
+
+                    <span asp-validation-for="Discount"></span><br />
+
+                    <label asp-for="Tax"></label>
+                    <input name="tax" id="Tax" asp-for="Tax" class="form-control" />
+                    <input name="old_tax" id="OldTax" asp-for="Tax" type="hidden" />
+
+                    <span asp-validation-for="Tax"></span><br />
+
+                    <label asp-for="DeliveryPrice">Delivery Price</label>
+                    <input name="deliveryprice" id="DeliveryPrice" asp-for="DeliveryPrice" class="form-control" />
+                    <input name="old_deliveryprice" id="OldDeliveryPrice" asp-for="DeliveryPrice" type="hidden" />
+
+                    <span asp-validation-for="DeliveryPrice"></span><br />
+
+                    <label asp-for="DeliveryAddress">Delivery Address</label>
+                    <input id="DeliveryAddress" asp-for="DeliveryAddress" class="form-control" />
+                    <input id="OldDeliveryAddress" asp-for="DeliveryAddress" type="hidden" />
+
+                    <span asp-validation-for="DeliveryAddress"></span><br />
+
+                    <input id="TotalPrice" asp-for="TotalPrice" class="form-control" type="hidden" />
+                    <input id="CustomerId" asp-for="CustomerId" class="form-control" type="hidden" />
+
+                    <label asp-for="OrderDate">Order Date</label>
+                    <input id="OrderDate" asp-for="OrderDate" class="form-control" />
+                    <input id="OldOrderDate" asp-for="OrderDate" type="hidden" />
+
+                    <span asp-validation-for="OrderDate"></span><br />
+
+                    <span id="error" class="text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Submit" id="submitButton" onclick="mysubmit(event)" />
+                    <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            </div>
+            </div> 
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,256 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+          <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
+    </head>
+    <body>
+<div  class="row my-2 position-static">
+    <p id="tempDataMessage" class="position-static" style="color:red">
+         @TempData["Message"]
+    </p>
+</div>
+
+<div class="row my-3">
+    <div class="col-4">
+        <input type="text" class="form-control text-success" placeholder="Search..." onkeyup="search(this.value)" />
+    </div>
+    <div class="col-3">
+        <a class="btn btn-primary" href="@Url.Action("Create","ProductEntries")" style="margin-left:10px">Create Product Entries</a>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-warning"  onclick="get()" style="margin-bottom: 10px;" >Get Product Entries</button>
+    </div>
+    
+</div>
+@*__________________________________________________________________
+*@
+
+<div class = "container">
+        <div class="row test"></div>
+    </div>
+
+<div id="modal-container">
+</div>
+</body>
+@section Scripts {
+    <script>
+        function get() {
+            $.ajax({
+                url: '@Url.Action("GetProductEntries", "ProductEntries")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        $(".test").empty();
+                        $.each(response.data, (index, item) => {
+                            const date = new Date(item.date);
+                            const formattedDate = date.toLocaleDateString();
+                            $(".test").append(` <div class="col-md-3">
+                                                        <div class="card card-widget widget-user-2" style="margin-top=20px">
+                                                            <div class="widget-user-header bg-light" style="min-height:100px" >
+                                                                 <div class="float-right">
+                                                                        <button class="btn btn-light" onclick="showModal('${item.id}')"
+                                                                                style='font-size:13px;position: relative;top:-12px;'>
+                                                                            <i class='fas fa-pen' style='font-size:10px;color:black; position: relative;top:0px;'></i>
+                                                                        </button>
+                                                             </div>
+                                                             <div class="float-right">
+                                                                       <button class="btn btn-light" onclick="del('${item.id}')"  
+                                                                               style='font-size:13px;position: relative;top:-12px'>
+                                                                                <i class='fas fa-trash' style='font-size:13px;color:black; position: relative;top:0px'></i>
+                                                                       </button>
+                                                             </div>
+                                                            
+                                                              <div class="float-right" style='top:-12px;'>
+                                                                         <button class="btn btn-light" onclick="window.location.href='/ProductEntries/Details/?id=${item.id}';"
+                                                                                    style='font-size:13px;position: relative;top:-12px'>
+                                                                                <i class='fas fa-cart-plus' style='font-size:13px;color:black; position: relative;top:0px'></i>
+                                                                       </button>
+                                                             </div>
+                                                                    <h5 class="widget-user-desc" style="margin-left:10px;"><b>Date :</b></br> ${formattedDate}</h5>
+                                                                    <h5 class="widget-user-desc" style="margin-left:10px;"><b>Supplier :</b></br> ${response.supplierNames[item.supplierId]}</h5>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>`)
+                        })
+                    }
+                    else {
+                        alert(response.message)
+                    }
+                },
+                error: function (msg) {
+                    console.error(msg);
+                }
+            })
+        }
+    </script>
+
+     
+    <script>
+        function search(val) {
+            $.ajax({
+                url: '@Url.Action("Search", "ProductEntries")' + '?value=' + val,
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('tbody').html('')
+                },
+                success: function (response) {
+                    if (response.success) {
+                       $(".test").empty();
+                        $.each(response.data, (index, item) => {
+                            const date = new Date(item.date);
+                            const formattedDate = date.toLocaleDateString();
+                            $(".test").append(` <div class="col-md-3">
+                                                        <div class="card card-widget widget-user-2" style="margin-top=20px">
+                                                            <div class="widget-user-header bg-light" style="min-height:100px" >
+                                                                 <div class="float-right">
+                                                                        <button class="btn btn-light" onclick="showModal('${item.id}')"
+                                                                                style='font-size:13px;position: relative;top:-12px;'>
+                                                                            <i class='fas fa-pen' style='font-size:10px;color:black; position: relative;top:0px;'></i>
+                                                                        </button>
+                                                             </div>
+                                                             <div class="float-right">
+                                                                       <button class="btn btn-light" onclick="del('${item.id}')"  
+                                                                               style='font-size:13px;position: relative;top:-12px'>
+                                                                                <i class='fas fa-trash' style='font-size:13px;color:black; position: relative;top:0px'></i>
+                                                                       </button>
+                                                             </div>
+                                                            
+                                                              <div class="float-right" style='top:-12px;'>
+                                                                         <button class="btn btn-light" onclick="window.location.href='/ProductEntries/Details/?id=${item.id}';"
+                                                                                    style='font-size:13px;position: relative;top:-12px'>
+                                                                                <i class='fas fa-cart-plus' style='font-size:13px;color:black; position: relative;top:0px'></i>
+                                                                       </button>
+                                                             </div>
+                                                                    <h5 class="widget-user-username" style="margin-left:10px;"><b>Date :</b></br> ${formattedDate}</h5>
+                                                                    <h5 class="widget-user-username" style="margin-left:10px;"><b>Supplier :</b></br> ${response.supplierNames[item.supplierId]}</h5>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>`)
+                        })
+                    }
+                    else {
+                        alert(response.message)
+                    }
+                },
+                error: function (msg) {
+                    console.error(msg);
+                }
+            })
+        }
+    </script>
+
+    <script>
+        function showModal(id) {
+            $.ajax({
+                url: '@Url.Action("GetModal", "ProductEntries")' + "?id=" + parseInt(id),
+                type: 'GET',
+                dataType: 'html',
+                success: function(response) {
+                    $('#modal-container').html(response); 
+                    $('.modal').modal('show');
+                    $.validator.unobtrusive.parse('form-id');
+                },
+                error: function(msg) {
+                    console.error(msg);
+                }
+            })
+        }
+    </script>
+
+    <script>
+        function del(id) {
+            $.ajax({
+                url: '@Url.Action("Delete", "ProductEntries")' + "?id=" + parseInt(id),
+                type: 'GET',
+                dataType: 'html',
+                success: function(response) {
+                    $('#modal-container').html(response); 
+                    $('.modal').modal('show');
+                    $.validator.unobtrusive.parse('form-id');
+                    
+                },
+                error: function(msg) {
+                    console.error(msg);
+                }
+            })
+        }
+    </script>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('tempDataMessage').innerHTML='';
+        }, 3000); // 3000 milliseconds = 3 sec
+    </script>
+
+     <script>
+  
+        function mysubmit(e)
+        {
+            e.preventDefault();
+                
+                var Date = document.getElementById('Date').value;
+                var SupplierId = document.getElementById('SupplierId').value;
+                var Id = document.getElementById('Id').value;
+                let obj = {
+                    "Date": Date,
+                    "Id":Id,
+                    "SupplierId":SupplierId
+                            };
+                    $.ajax({
+                        url: '/ProductEntries/Edit',
+                        type: 'POST',
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        data:obj ,
+                        //data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                window.location.href = '/ProductEntries/Index';
+                            } else {
+                                $('#error').text('');
+
+                                for (var fieldName in response.errors) {
+                                var errorMessage = response.errors[fieldName];
+                                $("#error").append(errorMessage + '<br>');
+}
+
+                            }
+                        },
+                        error: function () {
+                            alert('An error occurred during the AJAX request.');
+                        }
+                    })
+        }
+   
+    </script>
+
+    <script>
+        function showOrders(id)
+        {
+            //$.ajax({
+            //    url: '@Url.Action("Delete", "Customers")' + "?id=" + parseInt(id),
+            //    type: 'GET',
+            //    dataType: 'html',
+            //    success: function(response) {
+            //        $('#modal-container').html(response); 
+            //        $('.modal').modal('show');
+            //        $.validator.unobtrusive.parse('form-id');
+                    
+            //    },
+            //    error: function(msg) {
+            //        console.error(msg);
+            //    }
+            //})
+        }
+    </script>
+
+
+
+    }
+    </html>
